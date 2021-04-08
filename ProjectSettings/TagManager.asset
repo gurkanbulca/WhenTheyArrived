@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Enemy
+  - Collectable
+  - Tree
+  - Stone
+  - PlayerCameraGroup
+  - Animal
+  - SnapPoint
+  - Doorway
+  - BuildingPart
+  - PlacementSlot
+  - Fire
+  - ProductionStation
+  - Smelter
+  - Storage
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Enemy
+  - Collectable
+  - Gatherable
+  - Player
+  - Bullet
+  - Obstacle
+  - Animal
+  - Ground
+  - Foundation
+  - SeeThrough
+  - Door
+  - Minimap
+  - Interactable
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0

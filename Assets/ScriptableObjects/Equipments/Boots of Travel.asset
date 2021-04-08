@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1a5d16b0622b214e8ddf41e80b2482c, type: 3}
+  m_Name: Boots of Travel
+  m_EditorClassIdentifier: 
+  name: Boots of Travel
+  description: Don't let the name confuse you. This boots are perfect for protection.
+    Nothing else.
+  icon: {fileID: 21300000, guid: 73abc4bf3cd97444cb5e411b6271652f, type: 3}
+  isDefaultItem: 0
+  isStackable: 0
+  stackSize: 1
+  amount: 1
+  equipSlot: 3
+  armorModifier: 3
+  damageModifier: 0
+  mesh: {fileID: 2355310087536495020, guid: 341ba261f4f8e134ca951d3bd762ea62, type: 3}
+  secondMesh: {fileID: 6355041729376671058, guid: 04ddc69599f0c9846b7153c25262e8ad,
+    type: 3}
