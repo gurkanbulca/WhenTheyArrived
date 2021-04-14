@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using GD.MinMaxSlider;
+using UnityEditor;
 
 public class EnemyControl : MonoBehaviour
 {
@@ -15,7 +15,6 @@ public class EnemyControl : MonoBehaviour
     private Vector3 lastPosition;
     private float currentHealth;
 
-    [MinMaxSlider(0,100)]
     public Vector2 damageRange;
     public float maxHealth;
     public float chaseRange;
@@ -98,6 +97,8 @@ public class EnemyControl : MonoBehaviour
     {
         animator.SetInteger("Attack", 0);
         StatManagement.instance.ReceiveDamage(Random.Range(damageRange.x, damageRange.y));
+        EquipmentManager equipmentManager = EquipmentManager.instance;
+        equipmentManager.ArmorDurabilityDamage();
         if (fow.visibleTargets[0].GetComponent<PlayerMovement>().isCrouching)
         {
             fow.visibleTargets[0].GetComponent<PlayerMovement>().ToggleCrouching();

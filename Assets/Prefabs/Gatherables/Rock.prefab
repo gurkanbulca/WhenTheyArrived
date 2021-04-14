@@ -241,7 +241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 0ad5fb888816edf43911593b12effb41, type: 2}
-  amountRange: {x: 2, y: 20}
+  amountRange: {x: 15, y: 20}
   experience: 0
 --- !u!114 &-1583701951210318731
 MonoBehaviour:

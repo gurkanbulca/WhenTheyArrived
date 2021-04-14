@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CodeMonkey.Utils;
 
 public class MyGrid
 {
@@ -37,17 +36,6 @@ public class MyGrid
         {
             for (int y = 0; y < gridArray.GetLength(1); y++)
             {
-                // DEBUG -> Text 
-                if (debugMode)
-                {
-                    debugTextArray[x, y] = UtilsClass.CreateWorldText(gridArray[x, y].ToString(),
-                    textParent,
-                    GetWorldPosition(x, y) + new Vector3(cellSize, 0, cellSize) * 0.5f, 20,
-                    Color.white,
-                    TextAnchor.MiddleCenter);
-                    debugTextArray[x, y].transform.Rotate(new Vector3(90, 0, 0));
-                }
-
 
                 Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x, y + 1), Color.white, 100);
                 Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x + 1, y), Color.white, 100);

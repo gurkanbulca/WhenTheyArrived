@@ -25,3 +25,4 @@ MonoBehaviour:
   damageModifier: 0
   mesh: {fileID: 4972106263607438836, guid: 46caa9e140f6bc0439d1b2dc887dfa31, type: 3}
   secondMesh: {fileID: 0}
+  maxDurability: 10

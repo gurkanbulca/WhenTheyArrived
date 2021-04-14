@@ -75,12 +75,12 @@ public class AnimalAI : MonoBehaviour
         {
             safetyCounter++;
             if (safetyCounter > 100) break;
-            Vector3 destination = transform.position + (direction * 20);
+            Vector3 destination = transform.position + (direction * 60);
             if (agent.CalculatePath(destination, path))
             {
                 return path;
             }
-            destination = transform.position + (direction2 * 20);
+            destination = transform.position + (direction2 * 60);
             if (agent.CalculatePath(destination, path))
             {
                 return path;

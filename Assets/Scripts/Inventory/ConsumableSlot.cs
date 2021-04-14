@@ -10,7 +10,8 @@ public class ConsumableSlot : MonoBehaviour
     public GameObject placeholder;
     public Image icon;
     public int slotIndex;
-    Consumable item;
+    [HideInInspector]
+    public Consumable item;
 
 
     public void AddItem(Consumable newItem)

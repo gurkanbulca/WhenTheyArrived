@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc9141e89a77fb44cb04de9a45a7c14b, type: 3}
+  m_Name: Carrot Recipe
+  m_EditorClassIdentifier: 
+  inputs:
+  - item: {fileID: 11400000, guid: e932604b9aea9c54dbf1ade3de4d3613, type: 2}
+    amount: 1
+  outputs:
+  - item: {fileID: 11400000, guid: 46da05dfd8b6282478b0e8c0a0e92164, type: 2}
+    amount: 1
+  craftTime: 5

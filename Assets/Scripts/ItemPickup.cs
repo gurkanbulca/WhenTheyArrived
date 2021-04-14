@@ -1,12 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GD.MinMaxSlider;
 
 public class ItemPickup : MonoBehaviour
 {
     public Item item;
-    [MinMaxSlider(0,100)]
     public Vector2Int amountRange;
     int amount;
     public int experience;

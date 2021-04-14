@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -36,6 +37,7 @@ public class InventorySlot : MonoBehaviour
         {
             clearSlot();
         }
+        UpdateDurability();
     }
 
     public void AddItem(Item newItem)
@@ -98,14 +100,58 @@ public class InventorySlot : MonoBehaviour
 
     public void SplitAmount()
     {
-        if (item?.amount > 1 && !Inventory.instance.IsFull())
+        if (item?.amount > 1)
         {
-            int splitedAmount = item.amount / 2;
-            item.amount -= splitedAmount;
-            Item newItem = Instantiate(item);
-            int index = Inventory.instance.FindEmptySlot(transform.GetSiblingIndex() + 1);
-            Inventory.instance.Add(newItem, splitedAmount,index);
+            StorageController storage = StorageUI.instance.storage;
+            if (storage != null)
+            {
+                if (storage.hasContainItem(item))
+                {
+
+                    if (!storage.IsFull())
+                    {
+                        int splitedAmount;
+                        Item newItem = Split(out splitedAmount);
+                        int index = storage.FindEmptySlot(0);
+                        storage.Add(newItem, splitedAmount, index);
+                    }
+                }
+                else
+                {
+
+                    if (!Inventory.instance.IsFull())
+                    {
+                        int splitedAmount;
+                        Item newItem = Split(out splitedAmount);
+                        int index = Inventory.instance.FindEmptySlot(0);
+                        Inventory.instance.Add(newItem, splitedAmount, index);
+                    }
+                }
+            }
         }
+            
+        
+    }
+
+    internal void UpdateDurability()
+    {
+        Equipment equipment = item as Equipment;
+        if (equipment != null)
+        {
+            transform.Find("Durability").GetComponent<ProgressBarPro>().SetValue(equipment.GetCurrentDurability(),equipment.GetMaxDurability());
+        }
+        else
+        {
+            transform.Find("Durability").GetComponent<ProgressBarPro>().SetValue(0,1);
+        }
+    }
+
+    Item Split(out int splitedAmount)
+    {
+        splitedAmount = item.amount / 2;
+        item.amount -= splitedAmount;
+        Item newItem = Instantiate(item);
+        return newItem;
     }
 
     public void LockSlot()
@@ -114,6 +160,7 @@ public class InventorySlot : MonoBehaviour
         image.sprite = lockSprite;
         GetComponent<Button>().enabled = false;
         clearSlot();
+        UpdateDurability();
     }
 
     public void UnlockSlot()

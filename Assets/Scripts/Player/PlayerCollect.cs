@@ -298,11 +298,11 @@ public class PlayerCollect : MonoBehaviour
     {
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Stone"))
         {
-            obj.GetComponent<HighlightEffect>().SetHighlighted(false);
+            obj.GetComponent<HighlightEffect>()?.SetHighlighted(false);
         }
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Tree"))
         {
-            obj.GetComponent<HighlightEffect>().SetHighlighted(false);
+            obj.GetComponent<HighlightEffect>()?.SetHighlighted(false);
         }
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Collectable"))
         {
@@ -310,15 +310,15 @@ public class PlayerCollect : MonoBehaviour
         }
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("ProductionStation"))
         {
-            obj.GetComponent<HighlightEffect>().SetHighlighted(false);
+            obj.GetComponent<HighlightEffect>()?.SetHighlighted(false);
         }
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Smelter"))
         {
-            obj.GetComponent<HighlightEffect>().SetHighlighted(false);
+            obj.GetComponent<HighlightEffect>()?.SetHighlighted(false);
         }
         foreach (GameObject obj in GameObject.FindGameObjectsWithTag("Storage"))
         {
-            obj.GetComponent<HighlightEffect>().SetHighlighted(false);
+            obj.GetComponent<HighlightEffect>()?.SetHighlighted(false);
         }
     }
 
@@ -332,6 +332,8 @@ public class PlayerCollect : MonoBehaviour
     public void Gather()
     {
         closestCollect.GetComponent<GatherableManager>().Gather(tool);
+        tool.SetCurrentDurability(tool.GetCurrentDurability() - 1);
+        InventoryUI.instance.UpdateDurability(tool);
 
     }
 

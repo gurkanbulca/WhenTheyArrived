@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour, IItemContainer
 {
-
+ 
     #region Singleton
 
     public static Inventory instance;
@@ -21,8 +21,6 @@ public class Inventory : MonoBehaviour, IItemContainer
     }
 
     #endregion
-
-
 
     public delegate void OnItemChange();
     public OnItemChange onItemChangedCallback;
@@ -49,8 +47,6 @@ public class Inventory : MonoBehaviour, IItemContainer
                             {
                                 isItemFound = true;
                                 items[inventorySlot].amount += amount;
-
-
                             }
                             else
                             {

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -101,10 +102,7 @@ public class EquipmentManager : MonoBehaviour
                 Unequip(slotIndex);
             }
 
-            if (onEquipmentChanged != null)
-            {
-                onEquipmentChanged?.Invoke(newItem, oldItem);
-            }
+            
 
             currentEquipment[slotIndex] = newItem;
             GameObject secondEquipmentBone;
@@ -120,9 +118,100 @@ public class EquipmentManager : MonoBehaviour
             // Update stats
             stats.UpdateDamageModifier(newItem.damageModifier);
             stats.UpdateArmorModifier(newItem.armorModifier);
+            // Update EquipmentUI
+            onEquipmentChanged?.Invoke(newItem, oldItem);
 
     }
 
+    public void Unequip(int slotIndex, int inventorySlot = -1)
+    {
+        if (currentEquipment[slotIndex] != null)
+        {
+            if (currentMeshes[slotIndex] != null)
+            {
+                Destroy(currentMeshes[slotIndex].gameObject);
+                if (slotIndex == (int)EquipmentTypes.Foot)
+                {
+                    Destroy(currentMeshes[currentMeshes.Length - 1].gameObject);
+
+                }
+            }
+            Equipment oldItem = currentEquipment[slotIndex];
+            inventory.Add(oldItem, 1, inventorySlot);
+
+            currentEquipment[slotIndex] = null;
+
+
+            // Update stats
+            stats.UpdateDamageModifier(-oldItem.damageModifier);
+            stats.UpdateArmorModifier(-oldItem.armorModifier);
+            // Update EquipmentUI
+            onEquipmentChanged?.Invoke(null, oldItem);
+
+        }
+    }
+
+    public void WeaponDurabilityDamage(int amount=1)
+    {
+        foreach(var equipment in currentEquipment)
+        {
+            if (equipment != null)
+            {
+                if (equipment.equipSlot == EquipmentTypes.Weapon)
+                {
+                    EquipmentDurabilityDamage(equipment,amount);
+                }
+            }
+        }
+    }
+
+    public void ArmorDurabilityDamage(int amount=1)
+    {
+        EquipmentTypes[] armors = new EquipmentTypes[] {EquipmentTypes.Chest,EquipmentTypes.Foot,EquipmentTypes.Head,EquipmentTypes.Legs};
+        foreach (var equipment in currentEquipment)
+        {
+            if (equipment != null)
+            {
+                if (Array.IndexOf(armors, equipment.equipSlot) > -1)
+                {
+                    EquipmentDurabilityDamage(equipment,amount);
+                }
+            }
+        }
+    }
+
+    void EquipmentDurabilityDamage(Equipment equipment,int amount)
+    {
+        equipment.SetCurrentDurability(equipment.GetCurrentDurability() - amount);
+        if (equipment.GetCurrentDurability() <= 0)
+        {
+            DestroyEquipment(equipment);
+        }
+        else
+        {
+            onEquipmentChanged?.Invoke(equipment, null);
+        }
+    }
+
+    public void DestroyEquipment(Equipment equipment)
+    {
+        for(int i = 0; i < currentEquipment.Length; i++)
+        {
+            if (currentEquipment[i] == equipment)
+            {
+                currentEquipment[i] = null;
+                onEquipmentChanged?.Invoke(null, equipment);
+                stats.UpdateDamageModifier(-equipment.damageModifier);
+                stats.UpdateArmorModifier(-equipment.armorModifier);
+                Destroy(currentMeshes[(int)equipment.equipSlot]);
+                if (equipment.equipSlot == EquipmentTypes.Foot)
+                {
+                    Destroy(currentMeshes[currentMeshes.Length - 1].gameObject);
+                }
+                return;
+            }
+        }
+    }
 
     public void EquipConsumable(Consumable consumable, int slotIndex)
     {
@@ -177,34 +266,7 @@ public class EquipmentManager : MonoBehaviour
         }
     }
 
-    public void Unequip(int slotIndex, int inventorySlot = -1)
-    {
-        if (currentEquipment[slotIndex] != null)
-        {
-            if (currentMeshes[slotIndex] != null)
-            {
-                Destroy(currentMeshes[slotIndex].gameObject);
-                if (slotIndex == (int)EquipmentTypes.Foot)
-                {
-                    Destroy(currentMeshes[currentMeshes.Length - 1].gameObject);
-
-                }
-            }
-            Equipment oldItem = currentEquipment[slotIndex];
-            inventory.Add(oldItem, 1, inventorySlot);
-
-            currentEquipment[slotIndex] = null;
-
-            if (onEquipmentChanged != null)
-            {
-                onEquipmentChanged.Invoke(null, oldItem);
-            }
-
-            // Update stats
-            stats.UpdateDamageModifier(-oldItem.damageModifier);
-            stats.UpdateArmorModifier(-oldItem.armorModifier);
-        }
-    }
+    
 
     public void RemoveFromPockets(int slotIndex,int amount)
     {

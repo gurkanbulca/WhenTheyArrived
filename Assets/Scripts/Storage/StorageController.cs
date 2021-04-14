@@ -40,16 +40,15 @@ public class StorageController : MonoBehaviour,IItemContainer
         {
             if(items[inventorySlot] == null)
             {
+                items[inventorySlot] = Instantiate(newItem);
                 if (newItem.stackSize >= amount)
                 {
-                    items[inventorySlot] = newItem;
                     items[inventorySlot].amount = amount;
                     inventory.DestroyItem(newItem);
                 }
                 else
                 {
                     amount -= newItem.stackSize;
-                    items[inventorySlot] = newItem;
                     items[inventorySlot].amount = newItem.stackSize;
                     newItem.amount = amount;
                     inventory.onItemChangedCallback?.Invoke();
@@ -74,6 +73,10 @@ public class StorageController : MonoBehaviour,IItemContainer
                         result = Add(newItem, amount);
                     }
                 }
+                else
+                {
+                    Add(Instantiate(newItem), amount);
+                }
             }
         }
         else
@@ -85,15 +88,16 @@ public class StorageController : MonoBehaviour,IItemContainer
                 {
                     if(newItem.stackSize >= amount)
                     {
-                        items[i] = newItem;
+                        items[i] = Instantiate(newItem);
                         items[i].amount = amount;
                         result = true;
+                        inventory.DestroyItem(newItem);
                         break;
                     }
                     else
                     {
                         amount -= newItem.stackSize;
-                        items[i] = newItem;
+                        items[i] = Instantiate(newItem);
                         items[i].amount = newItem.stackSize;
                     }
                 }
@@ -105,6 +109,7 @@ public class StorageController : MonoBehaviour,IItemContainer
                         {
                             items[i].amount += amount;
                             result = true;
+                            inventory.DestroyItem(newItem);
                             break;
                         }
                         else
@@ -143,6 +148,12 @@ public class StorageController : MonoBehaviour,IItemContainer
                     items[from].amount = amount;
                 }
             }
+            else
+            {
+                Item itemp = items[to];
+                items[to] = items[from];
+                items[from] = itemp;
+            }
         }
         StorageUI.instance.UpdateStorage(items,this);
     }
@@ -157,9 +168,31 @@ public class StorageController : MonoBehaviour,IItemContainer
         throw new System.NotImplementedException();
     }
 
+    public bool hasContainItem(Item item)
+    {
+        foreach (var storageItem in items)
+        {
+            if (item == storageItem) return true;
+        }
+        return false;
+    }
+
     public bool IsFull()
     {
-        throw new System.NotImplementedException();
+        foreach (var item in items)
+        {
+            if (item == null) return false;
+        }
+        return true;
+    }
+
+    public int FindEmptySlot(int begin = 0)
+    {
+        for(int i = begin; i < items.Length; i++)
+        {
+            if (items[i] == null) return i;
+        }
+        return -1;
     }
 
     public int ItemCount(Item item)

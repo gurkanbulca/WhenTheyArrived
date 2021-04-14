@@ -71,6 +71,31 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
+    public void UpdateDurability(Equipment equipment)
+    {
+        Item[] items = inventory.items;
+        if (equipment.GetCurrentDurability() <= 0)
+        {
+            inventory.DestroyItem(equipment);
+            return;
+        }
+        for (int i = 0; i < items.Length; i++)
+        {
+            if (items[i] == equipment)
+            {
+                if (i < baseSlots.Length)
+                {
+                    baseSlots[i].GetComponent<InventorySlot>().UpdateDurability();
+                }
+                else
+                {
+                    extraSlots[i - baseSlots.Length].GetComponent<InventorySlot>().UpdateDurability();
+                }
+                break;
+            }
+        }
+    }
+
     public void ClearHighlights()
     {
         foreach (var slot in baseSlots)

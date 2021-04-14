@@ -211,6 +211,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 closestEnemy.GetComponent<AnimalAI>().TakeDamage(stats.damageModifier, transform);
             }
+            EquipmentManager.instance.WeaponDurabilityDamage();
             isAttacking = false;
         }
         
@@ -223,6 +224,8 @@ public class PlayerAttack : MonoBehaviour
         isAttacking = false;
         if (animator.GetFloat("Crouching") == 1)
             movement.ToggleCrouching();
+        EquipmentManager.instance.WeaponDurabilityDamage();
+
     }
 
     private void OnDrawGizmos()

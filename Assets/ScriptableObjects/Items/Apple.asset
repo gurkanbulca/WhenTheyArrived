@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Apple
   description: No description.
-  icon: {fileID: 21300000, guid: 5d9ba4e7d0964044ea54abe409d81dfd, type: 3}
+  icon: {fileID: 21300000, guid: 8b5d0c01b2b59234487df7cb73c32816, type: 3}
   isDefaultItem: 0
   isStackable: 1
   stackSize: 32

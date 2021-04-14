@@ -34,20 +34,20 @@ public class EquipmentUI : MonoBehaviour
         {
             if (oldItem != null)
             {
-                    EquipmentSlot targetSlot = FindSuitableSlot((Equipment)oldItem);
-                    targetSlot.clearSlot();
+                EquipmentSlot targetSlot = FindSuitableSlot((Equipment)oldItem);
+                targetSlot.clearSlot();
 
             }
             if (newItem != null)
             {
-                    EquipmentSlot targetSlot = FindSuitableSlot((Equipment)newItem);
-                    targetSlot.AddItem((Equipment)newItem);
+                EquipmentSlot targetSlot = FindSuitableSlot((Equipment)newItem);
+                targetSlot.AddItem((Equipment)newItem);
 
             }
         }
         else
         {
-            if(oldItem != null)
+            if (oldItem != null)
             {
                 pockets[slotIndex].clearSlot();
             }
@@ -56,7 +56,7 @@ public class EquipmentUI : MonoBehaviour
                 pockets[slotIndex].AddItem((Consumable)newItem);
             }
         }
-       
+
 
     }
 

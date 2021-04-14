@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Helmet of Fire
   description: Empowered with fire of phoneix. It has an aura to reinforce your attacks.
-  icon: {fileID: 21300000, guid: 4bedba54cf5dad44c8fa486b31bbabf9, type: 3}
+  icon: {fileID: 21300000, guid: a745f92d7beec474d8acfbadf7beef4a, type: 3}
   isDefaultItem: 0
   isStackable: 0
   stackSize: 1
@@ -24,3 +24,4 @@ MonoBehaviour:
   damageModifier: 1
   mesh: {fileID: 1014752248158373303, guid: d20989a81f0f40647b596e79ad7d47ad, type: 3}
   secondMesh: {fileID: 0}
+  maxDurability: 10

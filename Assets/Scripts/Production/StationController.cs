@@ -8,8 +8,7 @@ public class StationController : MonoBehaviour, IItemContainer
 {
     [SerializeField]
     int inputSize, outputSize;
-    [SerializeField]
-    CraftingRecipe[] recipeList;
+    public CraftingRecipe[] recipeList;
     
     [HideInInspector]
     public DateTime productionComplateDate;
@@ -427,6 +426,7 @@ public class StationController : MonoBehaviour, IItemContainer
             producingRecipe = null;
             productionComplateDate = GetTime();
         }
+        GetComponent<CropFieldManager>()?.UpdateCropField();
     }
 
     public int FindRemainingTime()
@@ -438,8 +438,8 @@ public class StationController : MonoBehaviour, IItemContainer
     {
         if (isProducing)
         {
-            Destroy(ProductionUI.instance.copyIcon);
-            ProductionUI.instance.copyIcon = null;
+            //Destroy(ProductionUI.instance.copyIcon);
+            //ProductionUI.instance.copyIcon = null;
             draggingInputIndex = -1;
             draggingOutputIndex = -1;
             int remainingTime = FindRemainingTime();
@@ -454,6 +454,7 @@ public class StationController : MonoBehaviour, IItemContainer
                 if (hasEnoughSpace)
                 {
                     producingRecipe.Craft(this);
+                    //GetComponent<CropFieldManager>().UpdateCropField();
                     if (producingRecipe)
                     {
                         productionComplateDate = productionComplateDate.AddSeconds(producingRecipe.craftTime);

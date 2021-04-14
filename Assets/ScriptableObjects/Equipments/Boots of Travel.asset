@@ -26,3 +26,4 @@ MonoBehaviour:
   mesh: {fileID: 2355310087536495020, guid: 341ba261f4f8e134ca951d3bd762ea62, type: 3}
   secondMesh: {fileID: 6355041729376671058, guid: 04ddc69599f0c9846b7153c25262e8ad,
     type: 3}
+  maxDurability: 10

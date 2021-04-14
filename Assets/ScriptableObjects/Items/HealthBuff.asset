@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Potion of Sanitary
   description: 100 amount max health increasement for 10 seconds.
-  icon: {fileID: 21300000, guid: e52ea25af699fd445b7046374f81a5b9, type: 3}
+  icon: {fileID: 21300000, guid: bd190f341a63ae7449752d80a3a8ef73, type: 3}
   isDefaultItem: 0
   isStackable: 1
   stackSize: 25
@@ -23,3 +23,5 @@ MonoBehaviour:
   - effect: 1
     amount: 100
     duration: 10
+  nutrition: 0
+  hydration: 0

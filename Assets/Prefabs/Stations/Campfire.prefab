@@ -229,7 +229,7 @@ MonoBehaviour:
   overlayBlending: 1
   outline: 1
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 0.25
+  outlineWidth: 0.3
   outlineQuality: 3
   outlineDownsampling: 2
   outlineVisibility: 0

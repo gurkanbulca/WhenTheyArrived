@@ -24,5 +24,6 @@ MonoBehaviour:
   damageModifier: 0
   mesh: {fileID: 7806970207533414937, guid: 8f9da0d8169393146be3b8a911fb30fa, type: 3}
   secondMesh: {fileID: 0}
+  maxDurability: 5
   toolType: 1
   gatherLevel: 1

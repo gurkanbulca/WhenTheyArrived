@@ -87,21 +87,25 @@ public class ProductionUI : MonoBehaviour
 
     public void UpdateInputsAndOutputs(Item[] inputs,Item[] outputs,StationController station)
     {
-        ClearParent(inputParent);
-        ClearParent(outputParent);
-        foreach (var item in inputs)
+        if(station == this.station)
         {
-            int amount = item != null ? item.amount : 0;
-            GameObject newInput = Instantiate(inputSlot, inputParent);
-            newInput.GetComponent<ProductionSlot>().SetSlot(item, amount,station);
-        }
+            ClearParent(inputParent);
+            ClearParent(outputParent);
+            foreach (var item in inputs)
+            {
+                int amount = item != null ? item.amount : 0;
+                GameObject newInput = Instantiate(inputSlot, inputParent);
+                newInput.GetComponent<ProductionSlot>().SetSlot(item, amount, station);
+            }
 
-        foreach (var item in outputs)
-        {
-            int amount = item != null ? item.amount : 0;
-            GameObject newOutput = Instantiate(outputSlot, outputParent);
-            newOutput.GetComponent<ProductionSlot>().SetSlot(item, amount,station);
+            foreach (var item in outputs)
+            {
+                int amount = item != null ? item.amount : 0;
+                GameObject newOutput = Instantiate(outputSlot, outputParent);
+                newOutput.GetComponent<ProductionSlot>().SetSlot(item, amount, station);
+            }
         }
+        
     }
 
     void ClearParent(Transform parent)

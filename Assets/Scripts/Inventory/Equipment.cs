@@ -15,6 +15,15 @@ public class Equipment : Item
     public GameObject mesh;
     public GameObject secondMesh;
 
+    [SerializeField]
+    int maxDurability;
+    int currentDurability;
+
+    private void Awake()
+    {
+        currentDurability = maxDurability;
+    }
+
 
 
     public override void Use()
@@ -25,6 +34,27 @@ public class Equipment : Item
         // Equip it to equipment slot
         EquipmentManager.instance.Equip(this);
     }
+
+    public void SetCurrentDurability(int amount)
+    {
+        currentDurability = amount;
+    }
+
+    public int GetCurrentDurability()
+    {
+        return currentDurability;
+    }
+
+    public void SetMaxDurability(int amount)
+    {
+        maxDurability = amount;
+    }
+
+    public int GetMaxDurability()
+    {
+        return maxDurability;
+    }
+
 
 }
 
