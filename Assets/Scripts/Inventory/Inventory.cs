@@ -167,6 +167,15 @@ public class Inventory : MonoBehaviour, IItemContainer
 
     }
 
+    public bool HasItem(Item candidateItem)
+    {
+        foreach (var item in items)
+        {
+            if (candidateItem == item) return true;
+        }
+        return false;
+    }
+
     public bool PushItem(Item item, int inventorySlot = -1)
     {
         if (inventorySlot != -1)
@@ -213,7 +222,7 @@ public class Inventory : MonoBehaviour, IItemContainer
 
     public void SwapItems(int to, int from)
     {
-        if (to == from) return;
+        if (to == from || to>=items.Length || from >= items.Length) return;
         if (items[from] != null)
         {
             if (items[to]?.name == items[from]?.name && items[to].isStackable)
@@ -255,8 +264,9 @@ public class Inventory : MonoBehaviour, IItemContainer
         return -1;
     }
 
-    public void DestroyItem(Item item,int amount = 0)
+    public bool DestroyItem(Item item,int amount = 0)
     {
+        bool result = false;
         if(amount == 0)
         {
             for (int i = 0; i < items.Length; i++)
@@ -264,13 +274,14 @@ public class Inventory : MonoBehaviour, IItemContainer
                 if (items[i] == item)
                 {
                     items[i] = null;
+                    result = true;
                     break;
                 }
 
             }
         }
-        
         onItemChangedCallback?.Invoke();
+        return result;
     }
 
     public bool hasEnoughSpaceForItem(Item item, int amount)

@@ -250,4 +250,30 @@ public class StorageController : MonoBehaviour,IItemContainer
         
         StorageUI.instance.UpdateStorage(items,this);
     }
+
+    public bool DestroyItem(Item item, int amount = 0)
+    {
+        for(int i = 0; i < items.Length; i++)
+        {
+            if (items[i] == item)
+            {
+                if (amount == 0)
+                {
+                    items[i] = null;
+                }
+                else
+                {
+                    items[i].amount -= amount;
+                    if (items[i].amount <= 0)
+                    {
+                        items[i] = null;
+                    }
+                }
+
+                StorageUI.instance.UpdateStorage(items, this);
+                return true;
+            }
+        }
+        return false;
+    }
 }

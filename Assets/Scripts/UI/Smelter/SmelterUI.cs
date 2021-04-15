@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class SmelterUI : MonoBehaviour
+public class SmelterUI : MonoBehaviour,ISidePanelUI
 {
 
     #region Singleton
@@ -125,5 +125,8 @@ public class SmelterUI : MonoBehaviour
         }
     }
 
-
+    public IItemContainer GetStation()
+    {
+        return this.smelter;
+    }
 }

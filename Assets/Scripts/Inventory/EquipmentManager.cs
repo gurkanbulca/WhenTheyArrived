@@ -151,6 +151,11 @@ public class EquipmentManager : MonoBehaviour
         }
     }
 
+    public Equipment GetWeapon()
+    {
+        return currentEquipment[(int)EquipmentTypes.Weapon];
+    }
+
     public void WeaponDurabilityDamage(int amount=1)
     {
         foreach(var equipment in currentEquipment)

@@ -25,9 +25,6 @@ public class StationController : MonoBehaviour, IItemContainer
     CraftingRecipe producingRecipe;
     
 
-
-
-
     private void Start()
     {
         multiUseUI = MultiuseUI.instace.multiuseUI;
@@ -294,26 +291,35 @@ public class StationController : MonoBehaviour, IItemContainer
         return DateTime.UtcNow.AddSeconds(seconds);
     }
 
-    public void DestroyItem(Item item)
+    public bool DestroyItem(Item item,int amount=0)
     {
         for (int i = 0; i < inputs.Length; i++)
         {
             if (inputs[i] == item)
             {
-                inputs[i] = null;
-                break;
+                DestroyProcess(inputs[i], amount);
+                ProductionUI.instance.UpdateInputsAndOutputs(inputs, outputs, this);
+                SetCraftingStatus();
+                return true;
             }
         }
         for (int i = 0; i < outputs.Length; i++)
         {
             if (outputs[i] == item)
             {
-                outputs[i] = null;
-                break;
+                DestroyProcess(outputs[i], amount);
+                ProductionUI.instance.UpdateInputsAndOutputs(inputs, outputs, this);
+                SetCraftingStatus();
+                return true;
             }
         }
-        ProductionUI.instance.UpdateInputsAndOutputs(inputs, outputs, this);
-        SetCraftingStatus();
+        return false;
+        
+    }
+
+    void DestroyProcess(Item item,int amount)
+    {
+
     }
 
     public string secondsToString(int time)
@@ -519,5 +525,5 @@ public class StationController : MonoBehaviour, IItemContainer
         return ProductionSlotType.Input;
     }
 
-
+   
 }

@@ -17,11 +17,11 @@ public class CropFieldManager : MonoBehaviour
         {
             duration = Mathf.Min(duration, recipe.craftTime);
         }
-        InvokeRepeating("InitCraft", 0, duration);
+        InvokeRepeating("ForceToCraft", 0, Mathf.Min(duration,30));
     }
 
 
-    void InitCraft()
+    void ForceToCraft()
     {
         GetComponent<StationController>().Craft();
     }

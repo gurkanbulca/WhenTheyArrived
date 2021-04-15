@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StorageUI : MonoBehaviour
+public class StorageUI : MonoBehaviour,ISidePanelUI
 {
 
     #region Singleton
@@ -64,4 +64,8 @@ public class StorageUI : MonoBehaviour
         }
     }
 
+    public IItemContainer GetStation()
+    {
+        return this.storage;
+    }
 }

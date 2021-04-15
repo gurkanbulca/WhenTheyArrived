@@ -68,7 +68,7 @@ public class EquipmentDropHandler : MonoBehaviour,IDropHandler
     private void EquipProcess(Equipment item)
     {
         equipmentManager.Equip(item);
-        inventory.Remove(item);
+        inventory.DestroyItem(item);
     }
 
     

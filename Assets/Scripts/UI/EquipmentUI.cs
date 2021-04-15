@@ -4,6 +4,20 @@ using UnityEngine;
 
 public class EquipmentUI : MonoBehaviour
 {
+    #region Singleton
+
+    public static EquipmentUI instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
+
+    #endregion
+
     public Transform EquipmentsParent;
     public GameObject equipmentUI;
 
@@ -21,10 +35,6 @@ public class EquipmentUI : MonoBehaviour
 
         slots = EquipmentsParent.GetComponentsInChildren<EquipmentSlot>();
         pockets = EquipmentsParent.GetComponentsInChildren<ConsumableSlot>();
-    }
-
-    private void Update()
-    {
     }
 
 
@@ -56,8 +66,14 @@ public class EquipmentUI : MonoBehaviour
                 pockets[slotIndex].AddItem((Consumable)newItem);
             }
         }
+    }
 
-
+    public void UpdateDurabilityBars()
+    {
+        foreach (var slot in slots)
+        {
+            slot.SetDurabilityBar();
+        }
     }
 
     public EquipmentSlot FindSuitableSlot(Equipment equipment)

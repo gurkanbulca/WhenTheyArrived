@@ -332,8 +332,17 @@ public class PlayerCollect : MonoBehaviour
     public void Gather()
     {
         closestCollect.GetComponent<GatherableManager>().Gather(tool);
-        tool.SetCurrentDurability(tool.GetCurrentDurability() - 1);
-        InventoryUI.instance.UpdateDurability(tool);
+        Equipment weapon = EquipmentManager.instance.GetWeapon();
+        if (weapon == tool)
+        {
+            EquipmentManager.instance.WeaponDurabilityDamage();
+        }
+        else
+        {
+            tool.SetCurrentDurability(tool.GetCurrentDurability() - 1);
+            InventoryUI.instance.UpdateDurability(tool);
+        }
+        
 
     }
 

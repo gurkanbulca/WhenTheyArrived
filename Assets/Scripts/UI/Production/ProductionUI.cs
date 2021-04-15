@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class ProductionUI : MonoBehaviour
+public class ProductionUI : MonoBehaviour , ISidePanelUI
 {
     #region Singleton
 
@@ -116,4 +116,8 @@ public class ProductionUI : MonoBehaviour
         }
     }
 
+    public IItemContainer GetStation()
+    {
+        return this.station;
+    }
 }

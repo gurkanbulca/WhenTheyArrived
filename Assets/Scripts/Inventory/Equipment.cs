@@ -26,13 +26,17 @@ public class Equipment : Item
 
 
 
-    public override void Use()
+    public override bool Use()
     {
-        base.Use();
+        if (!base.Use())
+        {
+            return false;
+        }
         // Remove it from the inventory
         RemoveFromInventory();
         // Equip it to equipment slot
         EquipmentManager.instance.Equip(this);
+        return true;
     }
 
     public void SetCurrentDurability(int amount)

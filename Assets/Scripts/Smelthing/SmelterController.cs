@@ -338,37 +338,55 @@ public class SmelterController : MonoBehaviour,IItemContainer
         SetCraftingStatus();
     }
 
-    public void DestroyItem(Item item)
+    public bool DestroyItem(Item item,int amount = 0)
     {
-        bool founded = false;
         for(int i = 0; i < inputs.Length; i++)
         {
-            if (founded) break;
             if (inputs[i] == item)
             {
-                inputs[i] = null;
-                founded = true;
+                DestroyProcess(inputs[i],amount);
+                SmelterUI.instance.UpdateInputsOutputsAndFuel(inputs, outputs, fuels, this);
+                SetCraftingStatus();
+                return true;
             }
         }
         for (int i = 0; i < outputs.Length; i++){
-            if (founded) break;
             if (outputs[i] == item)
             {
-                outputs[i] = null;
-                founded = true;
+                DestroyProcess(outputs[i], amount);
+                SmelterUI.instance.UpdateInputsOutputsAndFuel(inputs, outputs, fuels, this);
+                SetCraftingStatus();
+                return true;
             }
         }
         for (int i = 0; i < fuels.Length; i++)
         {
-            if (founded) break;
             if (fuels[i] == item)
             {
-                fuels[i] = null;
-                founded = true;
+                DestroyProcess(fuels[i], amount);
+                SmelterUI.instance.UpdateInputsOutputsAndFuel(inputs, outputs, fuels, this);
+                SetCraftingStatus();
+                return true;
             }
         }
-        SmelterUI.instance.UpdateInputsOutputsAndFuel(inputs, outputs, fuels, this);
-        SetCraftingStatus();
+        return false;
+        
+    }
+
+    void DestroyProcess(Item item,int amount)
+    {
+        if (amount == 0)
+        {
+            item = null;
+        }
+        else
+        {
+            item.amount -= amount;
+            if (item.amount <= 0)
+            {
+                item = null;
+            }
+        }
     }
 
     public bool IsFull()

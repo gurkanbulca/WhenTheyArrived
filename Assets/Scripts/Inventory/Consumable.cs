@@ -7,9 +7,12 @@ public class Consumable : Item
     public float nutrition;
     public float hydration;
 
-    public override void Use()
+    public override bool Use()
     {
-        base.Use();
+        if (!base.Use())
+        {
+            return false;
+        }
         foreach (Effect effect in effects)
         {
             switch (effect.effect)
@@ -33,6 +36,7 @@ public class Consumable : Item
 
         StatManagement.instance.UpdateHunger(nutrition);
         StatManagement.instance.UpdateThirst(hydration);
+        return true;
     }
 
     void Remove()

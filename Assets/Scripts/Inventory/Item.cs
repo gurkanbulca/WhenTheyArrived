@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Michsky.UI.ModernUIPack;
+using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Item", menuName = "Inventory/Item")]
 public class Item : ScriptableObject
@@ -13,6 +14,13 @@ public class Item : ScriptableObject
     public int stackSize=1;
     public int amount = 1;
 
+    WindowManager windowManager;
+
+    private void Awake()
+    {
+        windowManager = MultiuseUI.instace.windowManager;
+
+    }
 
     private void OnValidate()
     {
@@ -22,16 +30,37 @@ public class Item : ScriptableObject
         }
     }
      
-    public virtual void Use()
+    public virtual bool Use()
     {
         // use the item
         // Something might happen
         Debug.Log("using " + name);
+        if (windowManager.currentWindowIndex != 0)
+        {
+            IItemContainer station = windowManager.windows[windowManager.currentWindowIndex].windowObject.GetComponent<ISidePanelUI>().GetStation();
+            if (Inventory.instance.HasItem(this))
+            {
+                if (station.Add(this, this.amount))
+                {
+                    Inventory.instance.DestroyItem(this);
+                }
+            }
+            else
+            {
+                if (Inventory.instance.Add(this, amount))
+                {
+                    station.DestroyItem(this);
+                }
+            }
+            return false;
+            
+        }
+        return true;
     }
 
-    public void RemoveFromInventory(int amount = 1)
+    public void RemoveFromInventory()
     {
-        Inventory.instance.Remove(this,amount);
+        Inventory.instance.DestroyItem(this);
     }
 
 }
